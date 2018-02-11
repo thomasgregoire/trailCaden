@@ -3,13 +3,14 @@ package com.example.thomas.trailcaden;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +23,11 @@ public class MainActivity extends AppCompatActivity {
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
+    }
+
+    public void testAdmin(View view){
+        Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+
+        startActivity(intent);
     }
 }

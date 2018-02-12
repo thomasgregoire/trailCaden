@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "44850651562",
+    "firebase_url": "https://trail-de-caden.firebaseio.com",
+    "project_id": "trail-de-caden",
+    "storage_bucket": "trail-de-caden.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44850651562:android:02da7d141b889a5d",
+        "android_client_info": {
+          "package_name": "com.example.thomas.trailcaden"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44850651562-g86r9di4uf2dhg8s4mvito47gghbhhpe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.thomas.trailcaden",
+            "certificate_hash": "f63c244ea029d0884f3d54a05df72097e4304472"
+          }
+        },
+        {
+          "client_id": "44850651562-8m98006kpcrg6jcgofqbsj4vjldkbq7b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsFPWJZeEVBxuaKgSG4GXmL4K_KojdzGM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44850651562-8m98006kpcrg6jcgofqbsj4vjldkbq7b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

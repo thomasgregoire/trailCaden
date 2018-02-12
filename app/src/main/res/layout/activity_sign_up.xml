@@ -54,13 +54,14 @@
 
     <EditText
         android:id="@+id/dateField"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/firstNameField"
         android:layout_below="@+id/firstNameField"
         android:ems="10"
         android:hint="Date de naissance"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:onClick="showDatePickerDialog" />
 
     <Button
         android:id="@+id/signupButton"

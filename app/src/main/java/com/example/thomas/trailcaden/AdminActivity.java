@@ -1,9 +1,15 @@
 package com.example.thomas.trailcaden;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,39 +20,58 @@ import java.util.List;
 
 public class AdminActivity extends AppCompatActivity {
 
-    private List<Inscrit> inscritsList = new ArrayList<>();
-    private RecyclerView recyclerViewInscrits;
-    private InscritAdapter inscritAdapter;
+    FragmentManager fm = getFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
+        ToggleButton toggleInscrit = findViewById(R.id.toggleButton);
+        displayInscrits();
 
-        recyclerViewInscrits = findViewById(R.id.listeInscritsRV);
-        inscritAdapter = new InscritAdapter(inscritsList);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerViewInscrits.setLayoutManager(llm);
-        recyclerViewInscrits.setAdapter(inscritAdapter);
+        toggleInscrit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-        fakeInscrits();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked)
+                {
+                    hideFragments();
+                    displayInscrits();
+                }
+                else
+                {
+                    hideFragments();
+                    displayPreInscrits();
+                }
+            }
+        });
+
     }
 
-    private void fakeInscrits(){
-        Inscrit i = new Inscrit("Fonck", "Joris", "22/05/1994");
-        inscritsList.add(i);
 
-        i = new Inscrit("Grégoire", "Thomas", "25/06/1995");
-        inscritsList.add(i);
+    public void displayInscrits(){
 
-        i = new Inscrit("Josso", "Yvann", "13/09/1995");
-        inscritsList.add(i);
+        Fragment fragInscrit = new ListInscritFragment();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.add(R.id.adminll, fragInscrit);
+        fragmentTransaction.commit();
+    }
 
-        i = new Inscrit("Seedat", "Safiah", "02/05/1992");
-        inscritsList.add(i);
+    public void hideFragments(){
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        if (fm.findFragmentById(R.id.adminll) != null) {
+            fragmentTransaction.remove(fm.findFragmentById(R.id.adminll));
+        }
+        fragmentTransaction.commit();
+    }
 
-        inscritAdapter.notifyDataSetChanged();
+    public void displayPreInscrits(){
+
+        Fragment fragInscrit = new ListPreInscritFragment();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.add(R.id.adminll, fragInscrit);
+        fragmentTransaction.commit();
     }
 
 }

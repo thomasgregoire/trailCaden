@@ -4,15 +4,15 @@ package com.example.thomas.trailcaden;
  * Created by Thomas on 11/02/2018.
  */
 
-public class Inscrit {
+public class Person {
 
     private String name, firstname, date;
 
-    public  Inscrit(){
+    public Person(){
 
     }
 
-    public Inscrit(String name, String firstname, String date) {
+    public Person(String name, String firstname, String date) {
         this.name = name;
         this.firstname = firstname;
         this.date = date;

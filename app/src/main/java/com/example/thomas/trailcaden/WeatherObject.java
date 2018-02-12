@@ -25,6 +25,7 @@ public class WeatherObject {
         this.heure = heure;
     }
 
+
     @Override
     public String toString() {
         return "WeatherObject{" +
@@ -34,6 +35,72 @@ public class WeatherObject {
                 ", description='" + description + '\'' +
                 ", icon='" + icon + '\'' +
                 ", dt=" + dt +
+                ", dateJ='" + dateJ + '\'' +
+                ", heure='" + heure + '\'' +
                 '}';
+    }
+
+    public double getTemp() {
+        return temp;
+    }
+
+    public void setTemp(double temp) {
+        this.temp = temp;
+    }
+
+    public double getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(double humidity) {
+        this.humidity = humidity;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public long getDt() {
+        return dt;
+    }
+
+    public void setDt(long dt) {
+        this.dt = dt;
+    }
+
+    public String getDateJ() {
+        return dateJ;
+    }
+
+    public void setDateJ(String dateJ) {
+        this.dateJ = dateJ;
+    }
+
+    public String getHeure() {
+        return heure;
+    }
+
+    public void setHeure(String heure) {
+        this.heure = heure;
     }
 }

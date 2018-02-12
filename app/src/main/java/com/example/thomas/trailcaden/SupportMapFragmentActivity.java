@@ -22,7 +22,7 @@ public class SupportMapFragmentActivity extends FragmentActivity {
         FragmentManager fmanager = getSupportFragmentManager();
         Fragment fragment = fmanager.findFragmentById(R.id.map);
         SupportMapFragment supportmapfragment = (SupportMapFragment)fragment;
-        GoogleMap supportMap = supportmapfragment.getMap();
+        //GoogleMap supportMap = supportmapfragment.getMapAsync(this);
 
     }
 

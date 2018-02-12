@@ -20,6 +20,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
@@ -30,7 +31,7 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:11.8.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.google.android.gms:play-services:6.5.87'
+    compile 'com.google.android.gms:play-services:11.8.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

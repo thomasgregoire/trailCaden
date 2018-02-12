@@ -32,12 +32,44 @@
         android:inputType="textPassword"
         android:hint="@string/password_hint" />
 
-    <Button
-        android:id="@+id/signupButton"
+    <EditText
+        android:id="@+id/nameField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/passwordField"
         android:layout_below="@+id/passwordField"
+        android:ems="10"
+        android:hint="Nom"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/firstNameField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/nameField"
+        android:layout_below="@+id/nameField"
+        android:ems="10"
+        android:hint="Prénom"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/dateField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/firstNameField"
+        android:layout_below="@+id/firstNameField"
+        android:ems="10"
+        android:hint="Date de naissance"
+        android:inputType="textPersonName"
+        android:onClick="showDatePickerDialog" />
+
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:text="@string/sign_up_button_label" />
 
 </RelativeLayout>

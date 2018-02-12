@@ -2,11 +2,9 @@ package com.example.thomas.trailcaden;
 
 import android.content.Intent;
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -15,15 +13,20 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.thomas.trailcaden.Meteo.Weather;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import android.view.View;
-import android.widget.Toast;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
+
+    private DatabaseReference mDatabase;
+    private String mUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +35,13 @@ public class MainActivity extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         if (mFirebaseUser == null) {
             // Not logged in, launch the Log In activity
             loadLogInView();
+        } else {
+            mUserId = mFirebaseUser.getUid();
         }
     }
 
@@ -53,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected (MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_logout:
-                return true;
+                mFirebaseAuth.signOut();
+                loadLogInView();
         }
 
         return super.onOptionsItemSelected(item);

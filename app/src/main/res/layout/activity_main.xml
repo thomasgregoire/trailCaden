@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.168" />
+        app:layout_constraintVertical_bias="0.148" />
 
     <Button
         android:id="@+id/buttonTel"
@@ -44,13 +44,28 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="OpenTel"
-        android:text="Telephone"
+        android:text="Appeler Joris Fonck"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonPhoto"
-        app:layout_constraintVertical_bias="0.154" />
+        app:layout_constraintVertical_bias="0.111" />
+
+    <Button
+        android:id="@+id/buttonMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="56dp"
+        android:onClick="mapActivity"
+        android:text="Activity Carte"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonTel"
+        app:layout_constraintVertical_bias="0.035" />
 
     <Button
         android:id="@+id/weather"

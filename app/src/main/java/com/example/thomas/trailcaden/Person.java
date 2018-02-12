@@ -4,21 +4,21 @@ package com.example.thomas.trailcaden;
  * Created by Thomas on 11/02/2018.
  */
 
-public class Inscrit {
+public class Person {
     private String uid, name, firstname, date, genre, adresse, ville, cp, tel, mail;
     private String club, licence;
 
-    public Inscrit() {
+    public Person() {
 
     }
 
-    public Inscrit(String name, String firstname, String date) {
+    public Person(String name, String firstname, String date) {
         this.name = name;
         this.firstname = firstname;
         this.date = date;
     }
 
-    public Inscrit(String uid, String name, String firstname, String date, String mail) {
+    public Person(String uid, String name, String firstname, String date, String mail) {
         this.uid = uid;
         this.name = name;
         this.firstname = firstname;

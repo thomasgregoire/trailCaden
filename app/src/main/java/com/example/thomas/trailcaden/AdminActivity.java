@@ -51,7 +51,6 @@ public class AdminActivity extends AppCompatActivity {
     public void displayInscrits(){
 
         Fragment fragInscrit = new ListInscritFragment();
-        FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.add(R.id.adminll, fragInscrit);
         fragmentTransaction.commit();
@@ -68,7 +67,6 @@ public class AdminActivity extends AppCompatActivity {
     public void displayPreInscrits(){
 
         Fragment fragInscrit = new ListPreInscritFragment();
-        FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.add(R.id.adminll, fragInscrit);
         fragmentTransaction.commit();

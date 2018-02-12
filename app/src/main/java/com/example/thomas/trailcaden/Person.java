@@ -7,6 +7,7 @@ package com.example.thomas.trailcaden;
 public class Person {
     private String uid, name, firstname, date, genre, adresse, ville, cp, tel, mail;
     private String club, licence;
+    private boolean isInscrit = false;
 
     public Person() {
 
@@ -120,5 +121,13 @@ public class Person {
 
     public void setLicence(String licence) {
         this.licence = licence;
+    }
+
+    public boolean isInscrit() {
+        return isInscrit;
+    }
+
+    public void setInscrit(boolean inscrit) {
+        isInscrit = inscrit;
     }
 }

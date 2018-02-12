@@ -1,18 +1,16 @@
-package com.example.thomas.trailcaden;
+package com.example.thomas.trailcaden.admin;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.thomas.trailcaden.admin.fragments.ListInscritFragment;
+import com.example.thomas.trailcaden.admin.fragments.ListPreInscritFragment;
+import com.example.thomas.trailcaden.R;
 
 /**
  * Created by Thomas on 11/02/2018.

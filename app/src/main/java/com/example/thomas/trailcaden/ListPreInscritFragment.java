@@ -17,9 +17,9 @@ import java.util.List;
 
 public class ListPreInscritFragment extends Fragment {
 
-    private List<Inscrit> preInscritsList = new ArrayList<>();
+    private List<Person> preInscritsList = new ArrayList<>();
     private RecyclerView recyclerViewPreInscrits;
-    private InscritAdapter preInscritAdapter;
+    private PersonAdapter preInscritAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,7 +33,7 @@ public class ListPreInscritFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerViewPreInscrits = view.findViewById(R.id.listePreInscritsRV);
-        preInscritAdapter = new InscritAdapter(preInscritsList);
+        preInscritAdapter = new PersonAdapter(preInscritsList);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewPreInscrits.setLayoutManager(llm);
@@ -43,31 +43,31 @@ public class ListPreInscritFragment extends Fragment {
     }
 
     private void fakePreInscrits(){
-        Inscrit i = new Inscrit("pre", "inscrit", "01/01/0001");
+        Person i = new Person("pre", "inscrit", "01/01/0001");
         preInscritsList.add(i);
 
-        i = new Inscrit("pre", "inscrit", "01/01/0001");
+        i = new Person("pre", "inscrit", "01/01/0001");
         preInscritsList.add(i);
 
-        i = new Inscrit("pre", "inscrit", "01/01/0001");
+        i = new Person("pre", "inscrit", "01/01/0001");
         preInscritsList.add(i);
 
-        i = new Inscrit("pre2", "inscrit2", "01/01/0001");
+        i = new Person("pre2", "inscrit2", "01/01/0001");
         preInscritsList.add(i);
 
-        i = new Inscrit("pre2", "inscrit2", "01/01/0001");
+        i = new Person("pre2", "inscrit2", "01/01/0001");
         preInscritsList.add(i);
 
-        i = new Inscrit("pre2", "inscrit2", "01/01/0001");
+        i = new Person("pre2", "inscrit2", "01/01/0001");
         preInscritsList.add(i);
 
-        i = new Inscrit("pre3", "inscrit3", "01/01/0001");
+        i = new Person("pre3", "inscrit3", "01/01/0001");
         preInscritsList.add(i);
 
-        i = new Inscrit("pre3", "inscrit3", "01/01/0001");
+        i = new Person("pre3", "inscrit3", "01/01/0001");
         preInscritsList.add(i);
 
-         i = new Inscrit("pre3", "inscrit3", "01/01/0001");
+         i = new Person("pre3", "inscrit3", "01/01/0001");
         preInscritsList.add(i);
 
 

@@ -17,9 +17,9 @@ import java.util.List;
 
 public class ListInscritFragment extends Fragment {
 
-    private List<Inscrit> inscritsList = new ArrayList<>();
+    private List<Person> inscritsList = new ArrayList<>();
     private RecyclerView recyclerViewInscrits;
-    private InscritAdapter inscritAdapter;
+    private PersonAdapter personAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,60 +33,60 @@ public class ListInscritFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerViewInscrits = view.findViewById(R.id.listeInscritsRV);
-        inscritAdapter = new InscritAdapter(inscritsList);
+        personAdapter = new PersonAdapter(inscritsList);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewInscrits.setLayoutManager(llm);
-        recyclerViewInscrits.setAdapter(inscritAdapter);
+        recyclerViewInscrits.setAdapter(personAdapter);
 
         fakeInscrits();
     }
 
     private void fakeInscrits(){
-        Inscrit i = new Inscrit("Fonck", "Joris", "22/05/1994");
+        Person i = new Person("Fonck", "Joris", "22/05/1994");
         inscritsList.add(i);
 
-        i = new Inscrit("Grégoire", "Thomas", "25/06/1995");
+        i = new Person("Grégoire", "Thomas", "25/06/1995");
         inscritsList.add(i);
 
-        i = new Inscrit("Josso", "Yvann", "13/09/1995");
+        i = new Person("Josso", "Yvann", "13/09/1995");
         inscritsList.add(i);
 
-        i = new Inscrit("Seedat", "Safiah", "02/05/1992");
+        i = new Person("Seedat", "Safiah", "02/05/1992");
         inscritsList.add(i);
 
-        i = new Inscrit("Sahraoui", "Hedi-Théo", "31/05/1995");
+        i = new Person("Sahraoui", "Hedi-Théo", "31/05/1995");
         inscritsList.add(i);
 
-        i = new Inscrit("Siguret", "Alexandre", "01/08/1992");
+        i = new Person("Siguret", "Alexandre", "01/08/1992");
         inscritsList.add(i);
 
-        i = new Inscrit("Doe", "Jhon", "01/01/1992");
+        i = new Person("Doe", "Jhon", "01/01/1992");
         inscritsList.add(i);
 
-        i = new Inscrit("test", "test", "01/01/1900");
+        i = new Person("test", "test", "01/01/1900");
         inscritsList.add(i);
 
-        i = new Inscrit("a", "a", "01/01/1900");
+        i = new Person("a", "a", "01/01/1900");
         inscritsList.add(i);
 
-        i = new Inscrit("b", "b", "01/01/1900");
+        i = new Person("b", "b", "01/01/1900");
         inscritsList.add(i);
 
-        i = new Inscrit("c", "c", "01/01/1900");
+        i = new Person("c", "c", "01/01/1900");
         inscritsList.add(i);
 
-        i = new Inscrit("d", "d", "01/01/1900");
+        i = new Person("d", "d", "01/01/1900");
         inscritsList.add(i);
 
-        i = new Inscrit("e", "e", "01/01/1900");
+        i = new Person("e", "e", "01/01/1900");
         inscritsList.add(i);
 
-        i = new Inscrit("f", "f", "01/01/1900");
+        i = new Person("f", "f", "01/01/1900");
         inscritsList.add(i);
 
 
-        inscritAdapter.notifyDataSetChanged();
+        personAdapter.notifyDataSetChanged();
     }
 
 }

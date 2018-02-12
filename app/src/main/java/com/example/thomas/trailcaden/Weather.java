@@ -3,6 +3,10 @@ package com.example.thomas.trailcaden;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -22,14 +26,27 @@ import java.util.Locale;
 
 public class Weather extends AppCompatActivity {
 
+    private List<WeatherObject> weatherListG = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private WeatherAdapter weatherAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 
+        recyclerView = (RecyclerView) findViewById(R.id.meteo);
+
+        this.weatherAdapter = new WeatherAdapter(this.weatherListG);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        recyclerView.setAdapter(weatherAdapter);
         new ApiWeather().execute();
 
     }
+
 
     public class ApiWeather extends AsyncTask<Void,TextView, String> {
         private final String urlImageWeather = "http://openweathermap.org/img/w/";
@@ -93,24 +110,19 @@ public class Weather extends AppCompatActivity {
                     SimpleDateFormat jour = null;
                     jour = new SimpleDateFormat("d MMMM Y", Locale.FRANCE);
                     heure = new SimpleDateFormat("H:mm", Locale.FRANCE);
-                    System.out.println(heure.format(date));
-                    System.out.println(jour.format(date));
-
-                    WeatherObject w = new WeatherObject(temp,humidity,speed,description,icon,dt,jour.format(date),heure.format(date));
-
+                    WeatherObject w = new WeatherObject(temp,humidity,speed,description,urlImageWeather+icon,dt,jour.format(date),heure.format(date));
 
                     weatherList.add(w);
 
                 }
 
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            TextView fi = findViewById(R.id.textView);
-            fi.setText(response);
-            Log.i("INFO", weatherList.toString());
 
+            weatherListG.clear();
+            weatherListG.addAll(weatherList);
+            weatherAdapter.notifyDataSetChanged();
         }
 
 

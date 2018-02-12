@@ -51,17 +51,15 @@ public class Weather extends AppCompatActivity {
     public class ApiWeather extends AsyncTask<Void,TextView, String> {
         private final String urlImageWeather = "http://openweathermap.org/img/w/";
         private final String pngImageWeather = ".png";
-        private final String urlForecastWeather = "api.openweathermap.org/data/2.5/forecast?";
+        private final String urlForecastWeather = "http://api.openweathermap.org/data/2.5/forecast?";
         private final String idCadenWeather = "3029257";
         private final String apiKeyWeather = "3989eaa12bbbbd9c104074849f3ad937";
-        private Exception exception;
-
 
 
         @Override
         protected String doInBackground(Void... voids) {
             try {
-                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast?lat=47.63666&lon=-2.28&units=metric&lang=fr&APPID=3989eaa12bbbbd9c104074849f3ad937");
+                URL url = new URL(urlForecastWeather+"id="+idCadenWeather+"&units=metric&lang=fr&APPID="+apiKeyWeather);
                 // URL url = new URL("http://openweathermap.org/img/w/04n.png");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
@@ -84,8 +82,6 @@ public class Weather extends AppCompatActivity {
             }
         }
 
-
-
         protected void onPostExecute(String response) {
             List<WeatherObject> weatherList = new ArrayList<>();
             if(response == null) {
@@ -100,17 +96,19 @@ public class Weather extends AppCompatActivity {
                     JSONObject main = new JSONObject(list.getJSONObject("main").toString());
                     JSONObject wind = new JSONObject(list.getJSONObject("wind").toString());
                     double temp = main.getDouble("temp");
+                    temp = arrondir(temp,1);
                     double humidity = main.getDouble("humidity");
                     double speed = wind.getDouble("speed");
                     String description =  weather.getString("description");
-                    String icon = weather.getString("icon");
+                    String icon = urlImageWeather+weather.getString("icon")+pngImageWeather;
+                    System.out.println(icon);
                     long dt = list.getLong("dt");
                     Date date = new Date(dt*1000L);
                     SimpleDateFormat heure = null;
                     SimpleDateFormat jour = null;
-                    jour = new SimpleDateFormat("d MMMM Y", Locale.FRANCE);
+                    jour = new SimpleDateFormat("EEEE d MMMM Y", Locale.FRANCE);
                     heure = new SimpleDateFormat("H:mm", Locale.FRANCE);
-                    WeatherObject w = new WeatherObject(temp,humidity,speed,description,urlImageWeather+icon,dt,jour.format(date),heure.format(date));
+                    WeatherObject w = new WeatherObject(temp,humidity,speed,description,icon,dt,jour.format(date),heure.format(date));
 
                     weatherList.add(w);
 
@@ -125,6 +123,9 @@ public class Weather extends AppCompatActivity {
             weatherAdapter.notifyDataSetChanged();
         }
 
-
+        private double arrondir(Double number, int precision) {
+            double factor = Math.pow(10, precision);
+            return Math.round(number * factor) / factor;
+        }
     }
 }

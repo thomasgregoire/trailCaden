@@ -5,18 +5,35 @@ package com.example.thomas.trailcaden;
  */
 
 public class WeatherObject {
-    public String temperature;
-    public String weather_desc;
-    public String img;
-    public String hour;
-    public String date;
+    public double temp;
+    public double humidity;
+    public double speed;
+    public String description;
+    public String icon;
+    public long dt;
+    public String dateJ;
+    public String heure;
 
+    public WeatherObject(double temp, double humidity, double speed, String description, String icon, long dt, String dateJ, String heure) {
+        this.temp = temp;
+        this.humidity = humidity;
+        this.speed = speed;
+        this.description = description;
+        this.icon = icon;
+        this.dt = dt;
+        this.dateJ = dateJ;
+        this.heure = heure;
+    }
 
-    public WeatherObject(String temperature, String weather_desc, String img, String hour, String date) {
-        this.temperature = temperature;
-        this.weather_desc = weather_desc;
-        this.img = img;
-        this.hour = hour;
-        this.date = date;
+    @Override
+    public String toString() {
+        return "WeatherObject{" +
+                "temp=" + temp +
+                ", humidity=" + humidity +
+                ", speed=" + speed +
+                ", description='" + description + '\'' +
+                ", icon='" + icon + '\'' +
+                ", dt=" + dt +
+                '}';
     }
 }

@@ -1,4 +1,4 @@
-package com.example.thomas.trailcaden;
+package com.example.thomas.trailcaden.Meteo;
 
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.thomas.trailcaden.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

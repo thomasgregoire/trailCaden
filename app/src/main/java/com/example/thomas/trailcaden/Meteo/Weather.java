@@ -1,4 +1,4 @@
-package com.example.thomas.trailcaden;
+package com.example.thomas.trailcaden.Meteo;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
+
+import com.example.thomas.trailcaden.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

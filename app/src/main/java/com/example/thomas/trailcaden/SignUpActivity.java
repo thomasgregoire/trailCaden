@@ -79,7 +79,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 String firstName = firstNameEditText.getText().toString();
                                 String date = dateEditText.getText().toString();
 
-                                Inscrit person = new Inscrit(uid, name, firstName, email, date);
+                                Person person = new Person(uid, name, firstName, email, date);
                                 mDatabase.child("users").child(uid).push().setValue(person);
 
                                 Intent intent = new Intent(SignUpActivity.this, MainActivity.class);

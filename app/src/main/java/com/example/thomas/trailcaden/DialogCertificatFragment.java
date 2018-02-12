@@ -21,9 +21,10 @@ public class DialogCertificatFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        
+
         ImageView ivBasicImage = new ImageView(getActivity());
-        Picasso.with(getActivity()).load(R.mipmap.jojo).resize(500, 800).into(ivBasicImage);
+        Picasso.with(getActivity()).load(R.mipmap.jojo).resize(500, 800).
+                centerCrop().into(ivBasicImage);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.title_dialog)

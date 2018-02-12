@@ -1,12 +1,16 @@
 package com.example.thomas.trailcaden;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -96,6 +100,25 @@ public class SignUpActivity extends AppCompatActivity {
                             }
                         }
                     });
+                }
+            }
+        });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void showDatePickerDialog(View v) {
+        DatePickerDialog newFragment = new DatePickerDialog(this);
+
+        newFragment.show();
+        newFragment.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                EditText et = findViewById(R.id.dateField);
+
+                if(month < 10) {
+                    et.setText(dayOfMonth + "/0" + (month + 1) + "/" + year);
+                } else {
+                    et.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
                 }
             }
         });

@@ -20,16 +20,8 @@ import com.example.thomas.trailcaden.weather.Weather;
 import com.example.thomas.trailcaden.admin.AdminActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity {
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-
-    private DatabaseReference mDatabase;
-    private String mUserId;
-
+public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,59 +34,12 @@ public class MainActivity extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        if (mFirebaseUser == null) {
-            // Not logged in, launch the Log In activity
-            loadLogInView();
+        if (mFirebaseUser != null) {
+            isAuth = true;
         } else {
-            mUserId = mFirebaseUser.getUid();
+            isAuth = false;
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        MenuInflater inflater = getMenuInflater();
-
-        inflater.inflate(R.menu.menu_main, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.action_logout:
-                mFirebaseAuth.signOut();
-                loadLogInView();
-                break;
-
-            case R.id.weather:
-                weather();
-                break;
-            case R.id.contact:
-                contact();
-                break;
-            case R.id.parcours:
-                mapActivity();
-                break;
-            case R.id.admin:
-                espaceAdmin();
-                break;
-            case R.id.profil:
-                profil();
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void loadLogInView() {
-        Intent intent = new Intent(this, LogInActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
     }
 
     public void OpenCamera(View view) {
@@ -120,32 +65,5 @@ public class MainActivity extends AppCompatActivity {
         }else{
             startActivity(intent);
         }
-    }
-
-    public void espaceAdmin(){
-        Intent intent = new Intent(MainActivity.this, AdminActivity.class);
-
-        startActivity(intent);
-    }
-
-    public void mapActivity(){
-        Intent intent = new Intent(MainActivity.this, MapActivity.class);
-        startActivity(intent);
-    }
-
-    public void weather(){
-        Intent intent = new Intent(MainActivity.this, Weather.class);
-
-        startActivity(intent);
-    }
-
-    public void profil(){
-        Intent intent = new Intent(MainActivity.this, ProfilActivity.class);
-
-        startActivity(intent);
-    }
-
-    public void contact(){
-
     }
 }

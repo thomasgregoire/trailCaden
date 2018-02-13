@@ -1,5 +1,6 @@
 package com.example.thomas.trailcaden.weather;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,9 +9,20 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.thomas.trailcaden.BaseActivity;
+import com.example.thomas.trailcaden.MainActivity;
+import com.example.thomas.trailcaden.MapActivity;
+import com.example.thomas.trailcaden.ProfilActivity;
 import com.example.thomas.trailcaden.R;
+import com.example.thomas.trailcaden.admin.AdminActivity;
+import com.example.thomas.trailcaden.auth.LogInActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,8 +38,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class Weather extends AppCompatActivity {
-
+public class Weather extends BaseActivity {
     private List<WeatherObject> weatherListG = new ArrayList<>();
     private RecyclerView recyclerView;
     private WeatherAdapter weatherAdapter;
@@ -46,9 +57,7 @@ public class Weather extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(weatherAdapter);
         new ApiWeather().execute();
-
     }
-
 
     public class ApiWeather extends AsyncTask<Void,TextView, String> {
         private final String urlImageWeather = "http://openweathermap.org/img/w/";
@@ -56,7 +65,6 @@ public class Weather extends AppCompatActivity {
         private final String urlForecastWeather = "http://api.openweathermap.org/data/2.5/forecast?";
         private final String idCadenWeather = "3029257";
         private final String apiKeyWeather = "3989eaa12bbbbd9c104074849f3ad937";
-
 
         @Override
         protected String doInBackground(Void... voids) {

@@ -34,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected EditText firstNameEditText;
     protected EditText dateEditText;
     protected Button signUpButton;
+
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabase;
 
@@ -86,7 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 String firstName = firstNameEditText.getText().toString();
                                 String date = dateEditText.getText().toString();
 
-                                Person person = new Person(uid, name, firstName, email, date, false);
+                                Person person = new Person(uid, name, firstName, date, email, false);
                                 mDatabase.child("users").push().setValue(person);
 
                                 Intent intent = new Intent(SignUpActivity.this, MainActivity.class);

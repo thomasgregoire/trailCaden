@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.thomas.trailcaden.model.Person;
+import com.example.thomas.trailcaden.admin.fragments.DialogCertificatFragment;
+
 import java.util.List;
 
 /**
@@ -63,4 +66,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHold
         return inscritsList.size();
     }
 
+    public List<Person> getInscritsList() {
+        return inscritsList;
+    }
 }

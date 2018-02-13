@@ -1,4 +1,4 @@
-package com.example.thomas.trailcaden;
+package com.example.thomas.trailcaden.model;
 
 /**
  * Created by Thomas on 11/02/2018.
@@ -7,6 +7,7 @@ package com.example.thomas.trailcaden;
 public class Person {
     private String uid, name, firstname, date, genre, adresse, ville, cp, tel, mail;
     private String club, licence;
+    private boolean isInscrit = false;
 
     public Person() {
 
@@ -18,12 +19,13 @@ public class Person {
         this.date = date;
     }
 
-    public Person(String uid, String name, String firstname, String date, String mail) {
+    public Person(String uid, String name, String firstname, String date, String mail, boolean isInscrit) {
         this.uid = uid;
         this.name = name;
         this.firstname = firstname;
         this.date = date;
         this.mail = mail;
+        this.isInscrit = isInscrit;
     }
 
     public String getUid() {
@@ -120,5 +122,13 @@ public class Person {
 
     public void setLicence(String licence) {
         this.licence = licence;
+    }
+
+    public boolean isInscrit() {
+        return isInscrit;
+    }
+
+    public void setInscrit(boolean inscrit) {
+        isInscrit = inscrit;
     }
 }

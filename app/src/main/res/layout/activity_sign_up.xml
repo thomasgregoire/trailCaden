@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".SignUpActivity" >
+    tools:context=".auth.SignUpActivity" >
 
     <EditText
         android:id="@+id/emailField"
@@ -59,9 +59,11 @@
         android:layout_alignLeft="@+id/firstNameField"
         android:layout_below="@+id/firstNameField"
         android:ems="10"
+        android:focusable="auto"
         android:hint="Date de naissance"
         android:inputType="textPersonName"
-        android:onClick="showDatePickerDialog" />
+        android:onClick="showDatePickerDialog"
+        android:selectAllOnFocus="true" />
 
     <Button
         android:id="@+id/signupButton"

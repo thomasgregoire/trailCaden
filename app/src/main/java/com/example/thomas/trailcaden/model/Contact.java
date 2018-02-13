@@ -1,4 +1,4 @@
-package com.example.thomas.trailcaden;
+package com.example.thomas.trailcaden.model;
 
 /**
  * Created by Joris on 12/02/2018.

@@ -21,4 +21,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Météo">Météo</string>
+    <string name="bienvenue"> Bienvenue sur l\'application du Trail de Caden</string>
+    <string name="presentation">Depuis sa création en 2011, le Trail de Caden, mis en place par L\'association sportive Saint-Sébastien en collaboration avec le Comité Inter Association de Caden, a connu chaque année un succès (270 participants en 2017).</string>
+    <string name="inscription">Vous pouvez vous connectez pour vous inscrire à la course et accéder à votre compte.</string>
+    <string name="appli">Vous pouvez visualiser les parcours, la météo de Caden</string>
 </resources>

@@ -118,7 +118,6 @@ public class Weather extends AppCompatActivity {
                     speed = arrondir(speed,1);
                     String description =  weather.getString("description");
                     String icon = urlImageWeather+weather.getString("icon")+pngImageWeather;
-                    System.out.println(icon);
                     long dt = list.getLong("dt");
                     Date date = new Date(dt*1000L);
                     SimpleDateFormat heure = null;

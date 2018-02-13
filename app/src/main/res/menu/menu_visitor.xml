@@ -15,4 +15,9 @@
         android:id="@+id/parcours"
         android:title="Parcours"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/connect"
+        android:title="Se connecter"
+        app:showAsAction="never"/>
 </menu>

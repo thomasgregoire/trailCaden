@@ -22,13 +22,14 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHold
     private List<Person> inscritsList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, firsname, date;
+        public TextView name, firsname, date, mail;
 
         public MyViewHolder(View view) {
             super(view);
             name = view.findViewById(R.id.name);
             firsname = view.findViewById(R.id.fisrtname);
             date = view.findViewById(R.id.date);
+            mail = view.findViewById(R.id.mail);
         }
     }
 
@@ -38,13 +39,15 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHold
 
     @Override
     public MyViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
+        final View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.inscrit_list_view, parent, false);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                TextView mail = parent.findViewById(R.id.mail);
                 DialogCertificatFragment dcf = new DialogCertificatFragment();
+                dcf.setMail(mail.getText().toString());
                 FragmentManager manager = ((Activity) parent.getContext()).getFragmentManager();
                 dcf.show(manager, "test");
             }
@@ -59,6 +62,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHold
         holder.name.setText(person.getName());
         holder.firsname.setText(person.getFirstname());
         holder.date.setText(person.getDate());
+        holder.mail.setText(person.getMail());
     }
 
     @Override

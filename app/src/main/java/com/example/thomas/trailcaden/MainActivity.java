@@ -77,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.admin:
                 espaceAdmin();
                 break;
+            case R.id.profil:
+                profil();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -127,6 +130,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void weather(){
         Intent intent = new Intent(MainActivity.this, Weather.class);
+
+        startActivity(intent);
+    }
+
+    public void profil(){
+        Intent intent = new Intent(MainActivity.this, ProfilActivity.class);
 
         startActivity(intent);
     }

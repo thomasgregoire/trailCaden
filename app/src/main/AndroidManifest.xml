@@ -55,11 +55,8 @@
         <activity android:name=".LogInActivity">
         </activity>
         <activity android:name=".admin.AdminActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity android:name=".ProfilActivity">
         </activity>
         <activity android:name=".MapActivity" />
         <activity android:name=".Meteo.Weather"></activity>

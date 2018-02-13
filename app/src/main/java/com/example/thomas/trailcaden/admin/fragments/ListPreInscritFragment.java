@@ -2,6 +2,8 @@ package com.example.thomas.trailcaden.admin.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -41,6 +43,8 @@ public class ListPreInscritFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewPreInscrits.setLayoutManager(llm);
+        recyclerViewPreInscrits.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewPreInscrits.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerViewPreInscrits.setAdapter(preInscritAdapter);
 
         fakePreInscrits();

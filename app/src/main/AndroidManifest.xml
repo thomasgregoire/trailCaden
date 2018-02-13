@@ -35,7 +35,7 @@
         android:roundIcon="@mipmap/ic_trailcaden_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity"
+        <activity android:name=".auth.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,19 +50,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity">
+        <activity android:name=".auth.SignUpActivity">
         </activity>
-        <activity android:name=".LogInActivity">
+        <activity android:name=".auth.LogInActivity">
         </activity>
         <activity android:name=".admin.AdminActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity android:name=".ProfilActivity">
         </activity>
         <activity android:name=".MapActivity" />
-        <activity android:name=".Meteo.Weather"></activity>
+        <activity android:name=".weather.Weather"></activity>
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"

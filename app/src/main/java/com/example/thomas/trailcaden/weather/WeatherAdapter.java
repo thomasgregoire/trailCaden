@@ -1,4 +1,4 @@
-package com.example.thomas.trailcaden.Meteo;
+package com.example.thomas.trailcaden.weather;
 
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;

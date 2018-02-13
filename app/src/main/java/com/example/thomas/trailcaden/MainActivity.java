@@ -14,7 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.thomas.trailcaden.Meteo.Weather;
+import com.example.thomas.trailcaden.auth.LogInActivity;
+import com.example.thomas.trailcaden.weather.Weather;
 import com.example.thomas.trailcaden.admin.AdminActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -77,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.admin:
                 espaceAdmin();
                 break;
+            case R.id.profil:
+                profil();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -127,6 +131,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void weather(){
         Intent intent = new Intent(MainActivity.this, Weather.class);
+
+        startActivity(intent);
+    }
+
+    public void profil(){
+        Intent intent = new Intent(MainActivity.this, ProfilActivity.class);
 
         startActivity(intent);
     }

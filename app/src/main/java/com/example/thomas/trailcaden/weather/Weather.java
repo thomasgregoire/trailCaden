@@ -1,4 +1,4 @@
-package com.example.thomas.trailcaden.Meteo;
+package com.example.thomas.trailcaden.weather;
 
 import android.os.AsyncTask;
 import android.os.Bundle;

@@ -1,17 +1,18 @@
 package com.example.thomas.trailcaden;
 
-import android.content.Intent;
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.thomas.trailcaden.Meteo.Weather;
 import com.example.thomas.trailcaden.admin.AdminActivity;
@@ -19,8 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
@@ -62,6 +61,20 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_logout:
                 mFirebaseAuth.signOut();
                 loadLogInView();
+                break;
+
+            case R.id.weather:
+                weather();
+                break;
+            case R.id.contact:
+                contact();
+                break;
+            case R.id.parcours:
+                mapActivity();
+                break;
+            case R.id.admin:
+                espaceAdmin();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -99,20 +112,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void testAdmin(View view){
+    public void espaceAdmin(){
         Intent intent = new Intent(MainActivity.this, AdminActivity.class);
 
         startActivity(intent);
     }
 
-    public void mapActivity(View view){
+    public void mapActivity(){
         Intent intent = new Intent(MainActivity.this, MapActivity.class);
         startActivity(intent);
     }
 
-    public void weather(View view){
+    public void weather(){
         Intent intent = new Intent(MainActivity.this, Weather.class);
 
         startActivity(intent);
+    }
+
+    public void contact(){
+
     }
 }

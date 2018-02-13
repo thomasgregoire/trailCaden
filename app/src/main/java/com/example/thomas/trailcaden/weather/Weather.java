@@ -101,6 +101,7 @@ public class Weather extends AppCompatActivity {
                     temp = arrondir(temp,1);
                     double humidity = main.getDouble("humidity");
                     double speed = wind.getDouble("speed");
+                    speed = arrondir(speed,1);
                     String description =  weather.getString("description");
                     String icon = urlImageWeather+weather.getString("icon")+pngImageWeather;
                     System.out.println(icon);

@@ -2,6 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/profil"
+        android:title="Mon profil"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/weather"
+        android:title="@string/Météo"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/admin"
+        android:title="Espace Administration"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/contact"
+        android:title="Contact"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/parcours"
+        android:title="Parcours"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/action_logout"
         android:orderInCategory="100"
         android:title="@string/action_logout"

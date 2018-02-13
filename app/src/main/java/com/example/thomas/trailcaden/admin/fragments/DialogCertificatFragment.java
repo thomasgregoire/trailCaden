@@ -3,6 +3,9 @@ package com.example.thomas.trailcaden.admin.fragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.thomas.trailcaden.R;
+import com.example.thomas.trailcaden.admin.AdminActivity;
 import com.example.thomas.trailcaden.model.Person;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,6 +55,15 @@ public class DialogCertificatFragment extends DialogFragment {
                                 for (DataSnapshot child: dataSnapshot.getChildren()) {
 
                                     child.getRef().child("inscrit").setValue(true);
+
+                                    FragmentManager fm = getFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                                    if (fm.findFragmentById(R.id.adminll) != null) {
+                                        fragmentTransaction.remove(fm.findFragmentById(R.id.adminll));
+                                    }
+                                    Fragment fragInscrit = new ListPreInscritFragment();
+                                    fragmentTransaction.add(R.id.adminll, fragInscrit);
+                                    fragmentTransaction.commit();
                                 }
                             }
 

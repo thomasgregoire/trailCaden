@@ -19,32 +19,24 @@ import com.example.thomas.trailcaden.weather.Weather;
 import com.example.thomas.trailcaden.admin.AdminActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
-
-    private DatabaseReference mDatabase;
-    private String mUserId;
+    private boolean isAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        if (mFirebaseUser == null) {
-            // Not logged in, launch the Log In activity
-            loadLogInView();
+        if (mFirebaseUser != null) {
+            isAuth = true;
         } else {
-            mUserId = mFirebaseUser.getUid();
+            isAuth = false;
         }
     }
 
@@ -53,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
 
-        inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.menu_auth, menu);
 
         return true;
     }

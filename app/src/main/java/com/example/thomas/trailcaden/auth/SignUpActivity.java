@@ -1,4 +1,4 @@
-package com.example.thomas.trailcaden;
+package com.example.thomas.trailcaden.auth;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import com.example.thomas.trailcaden.MainActivity;
+import com.example.thomas.trailcaden.model.Person;
+import com.example.thomas.trailcaden.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -83,8 +86,8 @@ public class SignUpActivity extends AppCompatActivity {
                                 String firstName = firstNameEditText.getText().toString();
                                 String date = dateEditText.getText().toString();
 
-                                Person person = new Person(uid, name, firstName, email, date);
-                                mDatabase.child("users").child(uid).push().setValue(person);
+                                Person person = new Person(uid, name, firstName, email, date, false);
+                                mDatabase.child("users").push().setValue(person);
 
                                 Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

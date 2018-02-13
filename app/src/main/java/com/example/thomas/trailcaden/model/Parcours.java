@@ -1,4 +1,4 @@
-package com.example.thomas.trailcaden;
+package com.example.thomas.trailcaden.model;
 
 import java.sql.Timestamp;
 

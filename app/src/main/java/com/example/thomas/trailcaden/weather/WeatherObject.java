@@ -1,4 +1,4 @@
-package com.example.thomas.trailcaden.Meteo;
+package com.example.thomas.trailcaden.weather;
 
 /**
  * Created by yvann on 10/02/18.

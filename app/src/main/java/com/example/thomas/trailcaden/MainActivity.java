@@ -13,7 +13,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.example.thomas.trailcaden.Meteo.Weather;
+import com.example.thomas.trailcaden.auth.LogInActivity;
+import com.example.thomas.trailcaden.weather.Weather;
 import com.example.thomas.trailcaden.admin.AdminActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

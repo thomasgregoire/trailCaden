@@ -1,4 +1,4 @@
-package com.example.thomas.trailcaden;
+package com.example.thomas.trailcaden.model;
 
 /**
  * Created by Thomas on 11/02/2018.
@@ -19,12 +19,13 @@ public class Person {
         this.date = date;
     }
 
-    public Person(String uid, String name, String firstname, String date, String mail) {
+    public Person(String uid, String name, String firstname, String date, String mail, boolean isInscrit) {
         this.uid = uid;
         this.name = name;
         this.firstname = firstname;
         this.date = date;
         this.mail = mail;
+        this.isInscrit = isInscrit;
     }
 
     public String getUid() {

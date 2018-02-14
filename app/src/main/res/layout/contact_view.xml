@@ -1,37 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp">
 
     <TextView
         android:id="@+id/contact_poste"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text=""
-        android:textSize="15dp"
-        android:textStyle="bold"
-        />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/contact_nom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/contact_poste"
-        android:text="" />
+        android:text=""
+        android:textSize="16sp"
+        android:layout_marginTop="10dp"
+        />
 
     <TextView
         android:id="@+id/contact_mail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/contact_nom"
-        android:text="" />
+        android:text=""
+        android:textSize="16sp"
+        android:layout_marginTop="10dp"
+        />
 
     <TextView
         android:id="@+id/contact_tel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/contact_mail"
-        android:text="" />
+        android:text=""
+        android:textSize="16sp"
+        android:layout_marginTop="10dp"
+        />
 
     <Button
         android:id="@+id/button_call"
@@ -42,6 +52,8 @@
         android:layout_below="@+id/contact_poste"
         android:layout_marginEnd="19dp"
         android:layout_marginRight="19dp"
-        android:text="Appeler" />
+        android:background="@color/cast_expanded_controller_ad_container_white_stripe_color"
+        android:text="Appeler"
+        android:textColor="@color/colorPrimaryDark" />
 
 </RelativeLayout>

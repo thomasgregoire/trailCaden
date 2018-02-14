@@ -153,6 +153,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public void mapActivity(){
         Intent intent = new Intent(this, MapActivity.class);
+
         startActivity(intent);
     }
 

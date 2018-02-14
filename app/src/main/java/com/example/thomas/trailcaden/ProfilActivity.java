@@ -1,5 +1,6 @@
 package com.example.thomas.trailcaden;
 
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,20 +10,27 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.thomas.trailcaden.model.Person;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -49,12 +57,29 @@ public class ProfilActivity extends BaseActivity {
     private EditText club;
     private EditText licence;
     private EditText mail;
-
+    private Uri contentURI = null;
+    private String urlImage;
+    private String urlDown ;
     private Person person;
+    private StorageReference gsReference;
+
+    // Create a storage reference from our app
+    static FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+    static StorageReference storageRef = firebaseStorage.getReference();
+
+
+
+    // Create a reference to "mountains.jpg"
+    static StorageReference  userRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        urlImage = mFirebaseAuth.getUid()+"/profilPicture.jpg";
+
+        System.out.println(urlDown);
+
         setContentView(R.layout.activity_profil);
 
         nom = findViewById(R.id.nom);
@@ -67,7 +92,23 @@ public class ProfilActivity extends BaseActivity {
         cp = findViewById(R.id.cp);
         club = findViewById(R.id.club);
         licence = findViewById(R.id.licence);
-        imageView = null;
+        imageView = findViewById(R.id.imageView);
+
+
+        storageRef.child(urlImage).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+
+                Picasso.with(ProfilActivity.this)
+                        .load(uri).resize(200,200).into(imageView);
+            }
+
+
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }});
 
         getUser();
 
@@ -91,19 +132,19 @@ public class ProfilActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        super.onActivityResult(requestCode, resultCode, data);
+        Bitmap thumbnail;
         if (resultCode == this.RESULT_CANCELED) {
             return;
         }
 
         if (requestCode == 1) {
             if (data != null) {
-                Uri contentURI = data.getData();
+                contentURI = data.getData();
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
-                    String path = saveImage(bitmap);
-                    getImageView().setImageBitmap(bitmap);
+                    thumbnail= MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
+                    saveImage(thumbnail);
+                    cropImage();
+
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -111,18 +152,18 @@ public class ProfilActivity extends BaseActivity {
             }
 
         } else if (requestCode == 2) {
-            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-            getImageView().setImageBitmap(thumbnail);
+            thumbnail = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(thumbnail);
+
+            contentURI = Uri.parse(saveImage(thumbnail).toString());
+            cropImage();
             saveImage(thumbnail);
+            saveToFirebase(thumbnail,urlImage);
+        }  else if (requestCode == 3){
+            thumbnail = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(thumbnail);
+            saveToFirebase(thumbnail,urlImage);
         }
-    }
-
-    public ImageView getImageView() {
-        return imageView;
-    }
-
-    public void setImageView(ImageView imageView) {
-        this.imageView = imageView;
     }
 
     public void pickImage(View view) {
@@ -171,10 +212,10 @@ public class ProfilActivity extends BaseActivity {
         }
     }
 
-    public String saveImage(Bitmap myBitmap) {
+    public File saveImage(Bitmap myBitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File wallpaperDirectory = new File(Environment.getExternalStorageDirectory() + "image/");
+        myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        File wallpaperDirectory = new File(Environment.getExternalStorageDirectory() + "/trailCaden/");
         // have the object build the directory structure, if needed.
         if (!wallpaperDirectory.exists()) {
             wallpaperDirectory.mkdirs();
@@ -191,13 +232,66 @@ public class ProfilActivity extends BaseActivity {
             fo.close();
             Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
 
-            return f.getAbsolutePath();
+            return f;
         } catch (IOException e1) {
             e1.printStackTrace();
         }
 
-        return "";
+        return null;
     }
+
+
+    private void cropImage() {
+
+        try{
+            Intent intent = new Intent("com.android.camera.action.CROP");
+            intent.setDataAndType(contentURI,"image/*");
+
+            System.out.println("jhsfj<gwfjkfklqhkl             ====  "+contentURI);
+            intent.putExtra("outputX", 200);
+            intent.putExtra("outputY", 200);
+            intent.putExtra("aspectX", 2);
+            intent.putExtra("aspectY", 2);
+            //intent.putExtra("scale", true);
+            intent.putExtra("scaleUpIfNeeded",true);
+            intent.putExtra("return-data", true);
+
+
+            startActivityForResult(intent,3);
+        }
+        catch (ActivityNotFoundException ex)
+        {
+
+        }
+
+    }
+
+
+    public void saveToFirebase(Bitmap bitmap, String path){
+
+        userRef = storageRef.child(path);
+        // Get the data from an ImageView as bytes
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = userRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                Toast.makeText(ProfilActivity.this,"Image sauvegardée...",Toast.LENGTH_SHORT);
+            }
+        });
+    }
+
 
     private void getUser() {
         mDatabase.child("users").orderByChild("uid").equalTo(mFirebaseUser.getUid()).addChildEventListener(new ChildEventListener() {
@@ -219,4 +313,10 @@ public class ProfilActivity extends BaseActivity {
             public void onCancelled(DatabaseError databaseError) {}
         });
     }
+
+
+
+
+
+
 }

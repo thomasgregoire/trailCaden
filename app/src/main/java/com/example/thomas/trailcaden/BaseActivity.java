@@ -9,6 +9,8 @@ import android.view.MenuItem;
 
 import com.example.thomas.trailcaden.admin.AdminActivity;
 import com.example.thomas.trailcaden.auth.LogInActivity;
+import com.example.thomas.trailcaden.map.MapActivity;
+import com.example.thomas.trailcaden.map.MapFragment;
 import com.example.thomas.trailcaden.weather.Weather;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -98,7 +100,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void mapActivity(){
-        Intent intent = new Intent(this, MapActivity.class);
+        Intent intent = new Intent(this, MapFragment.class);
         startActivity(intent);
     }
 

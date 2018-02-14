@@ -30,7 +30,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -212,7 +211,7 @@ public class ProfilActivity extends BaseActivity {
         }
     }
 
-    public File saveImage(Bitmap myBitmap) {
+    public String saveImage(Bitmap myBitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         File wallpaperDirectory = new File(Environment.getExternalStorageDirectory() + "/trailCaden/");

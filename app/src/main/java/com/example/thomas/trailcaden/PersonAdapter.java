@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.thomas.trailcaden.model.Person;
@@ -45,12 +46,17 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHold
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                View mail = ((ViewGroup)view).getChildAt(2);
-                DialogCertificatFragment dcf = new DialogCertificatFragment();
-                TextView tv = (TextView)mail;
-                dcf.setMail(tv.getText().toString());
-                FragmentManager manager = ((Activity) parent.getContext()).getFragmentManager();
-                dcf.show(manager, "test");
+                RecyclerView rv = (RecyclerView)view.getParent();
+                RecyclerView rv2 = parent.findViewById(R.id.listePreInscritsRV);
+
+                if (rv.equals(rv2)){
+                    View mail = ((ViewGroup)view).getChildAt(2);
+                    DialogCertificatFragment dcf = new DialogCertificatFragment();
+                    TextView tv = (TextView)mail;
+                    dcf.setMail(tv.getText().toString());
+                    FragmentManager manager = ((Activity) parent.getContext()).getFragmentManager();
+                    dcf.show(manager, "test");
+                }
             }
         });
 

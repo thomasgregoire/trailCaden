@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -93,6 +94,21 @@ public class ProfilActivity extends BaseActivity {
         club = findViewById(R.id.club);
         licence = findViewById(R.id.licence);
         imageView = (ImageView)findViewById(R.id.imageView);
+
+        storageRef.child(urlImage).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+
+                Picasso.with(ProfilActivity.this)
+                        .load(uri).into(imageView);
+            }
+
+
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }});
 
         mDatabase.child("users").orderByChild("uid").equalTo(mFirebaseAuth.getUid()).addChildEventListener(new ChildEventListener() {
             @Override
@@ -269,6 +285,7 @@ public class ProfilActivity extends BaseActivity {
     public void saveToFirebase(Bitmap bitmap, String path){
 
         userRef = storageRef.child(path);
+
         // Get the data from an ImageView as bytes
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

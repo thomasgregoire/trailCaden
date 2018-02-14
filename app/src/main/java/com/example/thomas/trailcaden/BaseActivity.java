@@ -9,9 +9,17 @@ import android.view.MenuItem;
 
 import com.example.thomas.trailcaden.admin.AdminActivity;
 import com.example.thomas.trailcaden.auth.LogInActivity;
+import com.example.thomas.trailcaden.model.Person;
 import com.example.thomas.trailcaden.weather.Weather;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by Joris on 13/02/2018.
@@ -20,18 +28,52 @@ import com.google.firebase.auth.FirebaseUser;
 public class BaseActivity extends AppCompatActivity {
     protected FirebaseAuth mFirebaseAuth;
     protected FirebaseUser mFirebaseUser;
+    protected DatabaseReference mDatabase;
+
     protected boolean isAuth;
+    protected boolean isAdmin;
+
+    protected Menu m;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.mipmap.ic_trailcaden);
+        getSupportActionBar().setIcon(R.mipmap.panneau);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("users").orderByChild("uid").equalTo(mFirebaseAuth.getUid()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Person p = dataSnapshot.getValue(Person.class);
+
+                isAdmin = p.isAdmin();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
         if (mFirebaseUser != null) {
             isAuth = true;
@@ -45,8 +87,17 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
 
-        if(isAuth) {
-            inflater.inflate(R.menu.menu_auth, menu);
+        m = menu;
+
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA "+ isAuth + "AAAAAAAAAAAAAAAAAAAAAAAAA " + isAdmin);
+
+        if (isAuth) {
+            if (isAdmin) {
+                inflater.inflate(R.menu.menu_auth_admin, menu);
+            } else {
+                inflater.inflate(R.menu.menu_auth, menu);
+            }
+
         } else {
             inflater.inflate(R.menu.menu_visitor, menu);
         }
@@ -55,14 +106,14 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        switch(item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.connect:
                 loadLogInView();
                 break;
             case R.id.action_logout:
                 mFirebaseAuth.signOut();
-                loadLogInView();
+                loadMainActivity();
                 break;
             case R.id.weather:
                 weather();
@@ -91,32 +142,40 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void espaceAdmin(){
+    private void loadMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void espaceAdmin() {
         Intent intent = new Intent(this, AdminActivity.class);
 
         startActivity(intent);
     }
 
-    public void mapActivity(){
+    public void mapActivity() {
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
 
-    public void weather(){
+    public void weather() {
         Intent intent = new Intent(this, Weather.class);
 
         startActivity(intent);
     }
 
-    public void profil(){
+    public void profil() {
         Intent intent = new Intent(this, ProfilActivity.class);
 
         startActivity(intent);
     }
 
-    public void contact(){
+    public void contact() {
         /*Intent intent = new Intent(this, ContactActivity.class);
 
         startActivity(intent);*/
     }
+
 }

@@ -71,6 +71,9 @@
         <activity android:name=".weather.Weather"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".contact.ContactActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"

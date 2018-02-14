@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.example.thomas.trailcaden.admin.AdminActivity;
 import com.example.thomas.trailcaden.auth.LogInActivity;
+import com.example.thomas.trailcaden.contact.ContactActivity;
 import com.example.thomas.trailcaden.map.MapActivity;
 import com.example.thomas.trailcaden.model.Person;
 import com.example.thomas.trailcaden.weather.Weather;
@@ -168,8 +169,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void contact(){
-        /*Intent intent = new Intent(this, ContactActivity.class);
+        Intent intent = new Intent(this, ContactActivity.class);
 
-        startActivity(intent);*/
+        startActivity(intent);
     }
 }

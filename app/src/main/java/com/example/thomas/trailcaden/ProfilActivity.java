@@ -1,5 +1,7 @@
 package com.example.thomas.trailcaden;
 
+import android.*;
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -151,37 +153,71 @@ public class ProfilActivity extends BaseActivity {
         if (resultCode == this.RESULT_CANCELED) {
             return;
         }
+        if(urlImage.equals(mFirebaseAuth.getUid()+"/cerfificat.jpg")){
 
-        if (requestCode == 1) {
-            if (data != null) {
-                contentURI = data.getData();
-                try {
-                    thumbnail= MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
-                    saveImage(thumbnail);
-                    cropImage();
+            System.out.println("INNNNNNNNNN");
+            if (requestCode == 1) {
+                if (data != null) {
+                    contentURI = data.getData();
+                    try {
+                        thumbnail= MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
+                        saveImage(thumbnail);
+                        saveToFirebase(thumbnail,urlImage);
 
-
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+
+            } else if (requestCode == 2) {
+                thumbnail = (Bitmap) data.getExtras().get("data");
+
+                contentURI = Uri.parse(saveImage(thumbnail).toString());
+                saveImage(thumbnail);
+                saveToFirebase(thumbnail,urlImage);
+            }  else if (requestCode == 3){
+                thumbnail = (Bitmap) data.getExtras().get("data");
+                saveToFirebase(thumbnail,urlImage);
             }
+        }else{
 
-        } else if (requestCode == 2) {
-            thumbnail = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(thumbnail);
+            System.out.println("OUUUUUUUUUUTTT");
+            if (requestCode == 1) {
+                if (data != null) {
+                    contentURI = data.getData();
+                    try {
+                        thumbnail= MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
+                        saveImage(thumbnail);
+                        cropImage();
 
-            contentURI = Uri.parse(saveImage(thumbnail).toString());
-            cropImage();
-            saveImage(thumbnail);
-            saveToFirebase(thumbnail,urlImage);
-        }  else if (requestCode == 3){
-            thumbnail = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(thumbnail);
-            saveToFirebase(thumbnail,urlImage);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            } else if (requestCode == 2) {
+                thumbnail = (Bitmap) data.getExtras().get("data");
+                imageView.setImageBitmap(thumbnail);
+
+                contentURI = Uri.parse(saveImage(thumbnail).toString());
+                cropImage();
+                saveImage(thumbnail);
+                saveToFirebase(thumbnail,urlImage);
+            }  else if (requestCode == 3){
+                thumbnail = (Bitmap) data.getExtras().get("data");
+                imageView.setImageBitmap(thumbnail);
+                saveToFirebase(thumbnail,urlImage);
+            }
         }
     }
 
     public void pickImage(View view) {
+        showPictureDialog();
+    }
+
+    public void pickCertif(View view) {
+        urlImage = mFirebaseAuth.getUid()+"/cerfificat.jpg";
         showPictureDialog();
     }
 
@@ -209,10 +245,17 @@ public class ProfilActivity extends BaseActivity {
     }
 
     public void choosePhotoFromGallary() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        int permissionCheck = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+        }else{
+            Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-        startActivityForResult(galleryIntent, 1);
+            startActivityForResult(galleryIntent, 1);
+        }
     }
 
     private void takePhotoFromCamera() {
@@ -284,6 +327,7 @@ public class ProfilActivity extends BaseActivity {
 
     public void saveToFirebase(Bitmap bitmap, String path){
 
+        System.out.println("SAVETOFIREBASEE");
         userRef = storageRef.child(path);
 
         // Get the data from an ImageView as bytes
@@ -303,7 +347,8 @@ public class ProfilActivity extends BaseActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                Toast.makeText(ProfilActivity.this,"Image sauvegardée...",Toast.LENGTH_SHORT);
+                Toast t = Toast.makeText(ProfilActivity.this,"Image sauvegardée ...",Toast.LENGTH_LONG);
+                t.show();
             }
         });
     }

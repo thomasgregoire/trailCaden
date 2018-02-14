@@ -21,7 +21,7 @@ import java.io.IOException;
 
 import static com.google.android.gms.maps.MapFragment.newInstance;
 
-public class MapFragment extends FragmentActivity implements OnMapReadyCallback {
+public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private final LatLng CADEN = new LatLng(47.6269912719726562,-2.2877552509307861);
@@ -29,7 +29,7 @@ public class MapFragment extends FragmentActivity implements OnMapReadyCallback 
     private  KmlLayer layer8km;
     private KmlLayer layer;
 
-    public MapFragment() throws IOException, XmlPullParserException {}
+    public MapActivity() throws IOException, XmlPullParserException {}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.example.thomas.trailcaden.admin.AdminActivity;
 import com.example.thomas.trailcaden.auth.LogInActivity;
+import com.example.thomas.trailcaden.map.MapActivity;
 import com.example.thomas.trailcaden.model.Person;
 import com.example.thomas.trailcaden.weather.Weather;
 import com.google.firebase.auth.FirebaseAuth;
@@ -100,8 +101,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected (MenuItem item) {
+        switch(item.getItemId()) {
             case R.id.connect:
                 loadLogInView();
                 break;
@@ -143,30 +144,30 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void espaceAdmin() {
+    public void espaceAdmin(){
         Intent intent = new Intent(this, AdminActivity.class);
 
         startActivity(intent);
     }
 
-    public void mapActivity() {
+    public void mapActivity(){
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
 
-    public void weather() {
+    public void weather(){
         Intent intent = new Intent(this, Weather.class);
 
         startActivity(intent);
     }
 
-    public void profil() {
+    public void profil(){
         Intent intent = new Intent(this, ProfilActivity.class);
 
         startActivity(intent);
     }
 
-    public void contact() {
+    public void contact(){
         /*Intent intent = new Intent(this, ContactActivity.class);
 
         startActivity(intent);*/

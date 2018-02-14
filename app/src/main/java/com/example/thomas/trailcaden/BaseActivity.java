@@ -2,6 +2,7 @@ package com.example.thomas.trailcaden;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 
 import com.example.thomas.trailcaden.admin.AdminActivity;
 import com.example.thomas.trailcaden.auth.LogInActivity;
+import com.example.thomas.trailcaden.map.MapActivity;
 import com.example.thomas.trailcaden.model.Person;
 import com.example.thomas.trailcaden.weather.Weather;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +33,8 @@ public class BaseActivity extends AppCompatActivity {
     protected boolean isAuth;
     protected boolean isAdmin;
 
+    protected Menu m;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,35 +47,36 @@ public class BaseActivity extends AppCompatActivity {
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("users").orderByChild("uid").equalTo(mFirebaseAuth.getUid()).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Person p = dataSnapshot.getValue(Person.class);
-
-                isAdmin = p.isAdmin();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
         if (mFirebaseUser != null) {
+            mDatabase.child("users").orderByChild("uid").equalTo(mFirebaseAuth.getUid()).addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    Person p = dataSnapshot.getValue(Person.class);
+
+                    isAdmin = p.isAdmin();
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+
             isAuth = true;
         } else {
             isAuth = false;
+            isAdmin = false;
         }
     }
 
@@ -79,6 +84,8 @@ public class BaseActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
+
+        m = menu;
 
         if (isAuth) {
             if (isAdmin) {
@@ -94,8 +101,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected (MenuItem item) {
+        switch(item.getItemId()) {
             case R.id.connect:
                 loadLogInView();
                 break;
@@ -137,30 +144,30 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void espaceAdmin() {
+    public void espaceAdmin(){
         Intent intent = new Intent(this, AdminActivity.class);
 
         startActivity(intent);
     }
 
-    public void mapActivity() {
+    public void mapActivity(){
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
 
-    public void weather() {
+    public void weather(){
         Intent intent = new Intent(this, Weather.class);
 
         startActivity(intent);
     }
 
-    public void profil() {
+    public void profil(){
         Intent intent = new Intent(this, ProfilActivity.class);
 
         startActivity(intent);
     }
 
-    public void contact() {
+    public void contact(){
         /*Intent intent = new Intent(this, ContactActivity.class);
 
         startActivity(intent);*/

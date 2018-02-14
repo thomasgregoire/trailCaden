@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.example.thomas.trailcaden.BaseActivity;
 import com.example.thomas.trailcaden.MainActivity;
-import com.example.thomas.trailcaden.MapActivity;
 import com.example.thomas.trailcaden.ProfilActivity;
 import com.example.thomas.trailcaden.R;
 import com.example.thomas.trailcaden.admin.AdminActivity;

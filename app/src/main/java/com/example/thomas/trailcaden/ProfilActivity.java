@@ -73,6 +73,8 @@ public class ProfilActivity extends BaseActivity {
     static StorageReference  userRef;
 
 
+    private Person p;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,51 +84,49 @@ public class ProfilActivity extends BaseActivity {
 
         setContentView(R.layout.activity_profil);
 
-        nom = findViewById(R.id.nom);
+        nom = (EditText) findViewById(R.id.nom);
         prenom = findViewById(R.id.prenom);
         dateNaiss = findViewById(R.id.dateNaiss);
         mail = findViewById(R.id.email);
-        genre = findViewById(R.id.genre);
         adresse = findViewById(R.id.adresse);
         ville = findViewById(R.id.ville);
         cp = findViewById(R.id.cp);
         club = findViewById(R.id.club);
         licence = findViewById(R.id.licence);
-        imageView = findViewById(R.id.imageView);
+        imageView = (ImageView)findViewById(R.id.imageView);
 
-
-        storageRef.child(urlImage).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        mDatabase.child("users").orderByChild("uid").equalTo(mFirebaseAuth.getUid()).addChildEventListener(new ChildEventListener() {
             @Override
-            public void onSuccess(Uri uri) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                p = dataSnapshot.getValue(Person.class);
 
-                Picasso.with(ProfilActivity.this)
-                        .load(uri).resize(200,200).into(imageView);
+                nom.setText(p.getName());
+                prenom.setText(p.getFirstname());
+                dateNaiss.setText(p.getDate());
+                /*mail.setText(p.getMail());
+                adresse.setText(p.getAdresse());
+                ville.setText(p.getVille());
+                cp.setText(p.getCp());
+                club.setText(p.getClub());
+                licence.setText(p.getLicence());*/
             }
 
-
-        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-            }});
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
 
-        getUser();
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
 
-        System.out.println(person);
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
 
-        /*nom.setText(person.getName());
-        prenom.setText(person.getFirstname());
-        dateNaiss.setText(person.getDate());
-        mail.setText(person.getMail());
-        adresse.setText(person.getAdresse());
-        ville.setText(person.getVille());
-        cp.setText(person.getCp());
-        club.setText(person.getClub());
-        licence.setText(person.getLicence());*/
-
-        //Reste a faire le genre
-
-        imageView = (ImageView)findViewById(R.id.imageView);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     @Override
@@ -176,20 +176,20 @@ public class ProfilActivity extends BaseActivity {
         String[] pictureDialogItems = {
                 "Provenant de la gallerie",
                 "Prendre une photo" };
-        pictureDialog.setItems(pictureDialogItems,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                choosePhotoFromGallary();
-                                break;
-                            case 1:
-                                takePhotoFromCamera();
-                                break;
-                        }
-                    }
-                });
+        pictureDialog.setItems(pictureDialogItems, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        choosePhotoFromGallary();
+                        break;
+                    case 1:
+                        takePhotoFromCamera();
+                        break;
+                }
+            }
+        });
+
         pictureDialog.show();
     }
 
@@ -232,12 +232,12 @@ public class ProfilActivity extends BaseActivity {
             fo.close();
             Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
 
-            return f;
+            return f.getAbsolutePath();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
 
-        return null;
+        return "";
     }
 
 

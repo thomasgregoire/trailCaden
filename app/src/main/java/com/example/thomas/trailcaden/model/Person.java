@@ -13,12 +13,6 @@ public class Person {
 
     }
 
-    public Person(String name, String firstname, String date) {
-        this.name = name;
-        this.firstname = firstname;
-        this.date = date;
-    }
-
     public Person(String uid, String name, String firstname, String date, String mail, boolean isInscrit, boolean isAdmin) {
         this.uid = uid;
         this.name = name;
@@ -27,6 +21,14 @@ public class Person {
         this.mail = mail;
         this.isInscrit = isInscrit;
         this.isAdmin = isAdmin;
+
+        this.cp = "";
+        this.ville = "";
+        this.adresse = "";
+        this.genre = "";
+        this.tel = "";
+        this.club = "";
+        this.licence = "";
     }
 
     public String getUid() {

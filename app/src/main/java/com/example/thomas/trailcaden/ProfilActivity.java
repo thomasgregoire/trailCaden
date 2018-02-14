@@ -42,7 +42,6 @@ public class ProfilActivity extends BaseActivity {
     private EditText nom;
     private EditText prenom;
     private EditText dateNaiss;
-    private RadioGroup genre;
     private EditText adresse;
     private EditText ville;
     private EditText cp;
@@ -50,42 +49,56 @@ public class ProfilActivity extends BaseActivity {
     private EditText licence;
     private EditText mail;
 
-    private Person person;
+    private Person p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
 
-        nom = findViewById(R.id.nom);
+        nom = (EditText) findViewById(R.id.nom);
         prenom = findViewById(R.id.prenom);
         dateNaiss = findViewById(R.id.dateNaiss);
         mail = findViewById(R.id.email);
-        genre = findViewById(R.id.genre);
         adresse = findViewById(R.id.adresse);
         ville = findViewById(R.id.ville);
         cp = findViewById(R.id.cp);
         club = findViewById(R.id.club);
         licence = findViewById(R.id.licence);
-        imageView = null;
-
-        getUser();
-
-        System.out.println(person);
-
-        /*nom.setText(person.getName());
-        prenom.setText(person.getFirstname());
-        dateNaiss.setText(person.getDate());
-        mail.setText(person.getMail());
-        adresse.setText(person.getAdresse());
-        ville.setText(person.getVille());
-        cp.setText(person.getCp());
-        club.setText(person.getClub());
-        licence.setText(person.getLicence());*/
-
-        //Reste a faire le genre
-
         imageView = (ImageView)findViewById(R.id.imageView);
+
+        mDatabase.child("users").orderByChild("uid").equalTo(mFirebaseAuth.getUid()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                p = dataSnapshot.getValue(Person.class);
+
+                nom.setText(p.getName());
+                prenom.setText(p.getFirstname());
+                dateNaiss.setText(p.getDate());
+                /*mail.setText(p.getMail());
+                adresse.setText(p.getAdresse());
+                ville.setText(p.getVille());
+                cp.setText(p.getCp());
+                club.setText(p.getClub());
+                licence.setText(p.getLicence());*/
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     @Override
@@ -135,20 +148,20 @@ public class ProfilActivity extends BaseActivity {
         String[] pictureDialogItems = {
                 "Provenant de la gallerie",
                 "Prendre une photo" };
-        pictureDialog.setItems(pictureDialogItems,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                choosePhotoFromGallary();
-                                break;
-                            case 1:
-                                takePhotoFromCamera();
-                                break;
-                        }
-                    }
-                });
+        pictureDialog.setItems(pictureDialogItems, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        choosePhotoFromGallary();
+                        break;
+                    case 1:
+                        takePhotoFromCamera();
+                        break;
+                }
+            }
+        });
+
         pictureDialog.show();
     }
 
@@ -197,26 +210,5 @@ public class ProfilActivity extends BaseActivity {
         }
 
         return "";
-    }
-
-    private void getUser() {
-        mDatabase.child("users").orderByChild("uid").equalTo(mFirebaseUser.getUid()).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                person = dataSnapshot.getValue(Person.class);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
     }
 }

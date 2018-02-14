@@ -18,8 +18,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by Joris on 13/02/2018.
@@ -33,13 +31,9 @@ public class BaseActivity extends AppCompatActivity {
     protected boolean isAuth;
     protected boolean isAdmin;
 
-    protected Menu m;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -47,7 +41,6 @@ public class BaseActivity extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mDatabase.child("users").orderByChild("uid").equalTo(mFirebaseAuth.getUid()).addChildEventListener(new ChildEventListener() {
@@ -87,17 +80,12 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
 
-        m = menu;
-
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA "+ isAuth + "AAAAAAAAAAAAAAAAAAAAAAAAA " + isAdmin);
-
         if (isAuth) {
             if (isAdmin) {
                 inflater.inflate(R.menu.menu_auth_admin, menu);
             } else {
                 inflater.inflate(R.menu.menu_auth, menu);
             }
-
         } else {
             inflater.inflate(R.menu.menu_visitor, menu);
         }
@@ -177,5 +165,4 @@ public class BaseActivity extends AppCompatActivity {
 
         startActivity(intent);*/
     }
-
 }

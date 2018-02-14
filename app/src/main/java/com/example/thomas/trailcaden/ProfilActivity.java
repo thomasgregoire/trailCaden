@@ -13,6 +13,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+
+import com.example.thomas.trailcaden.model.Person;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,31 +34,58 @@ import java.util.Calendar;
  * Created by Thomas on 13/02/2018.
  */
 
-public class ProfilActivity extends AppCompatActivity {
+public class ProfilActivity extends BaseActivity {
     public static final int GET_FROM_GALLERY = 3;
-    public ImageView imageView = null;
+    public static int PICK_IMAGE_REQUEST = 1;
 
-    public ImageView getImageView() {
-        return imageView;
-    }
+    private ImageView imageView;
+    private EditText nom;
+    private EditText prenom;
+    private EditText dateNaiss;
+    private RadioGroup genre;
+    private EditText adresse;
+    private EditText ville;
+    private EditText cp;
+    private EditText club;
+    private EditText licence;
+    private EditText mail;
 
-    public void setImageView(ImageView imageView) {
-        this.imageView = imageView;
-    }
+    private Person person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
 
-       imageView = (ImageView)findViewById(R.id.imageView);
+        nom = findViewById(R.id.nom);
+        prenom = findViewById(R.id.prenom);
+        dateNaiss = findViewById(R.id.dateNaiss);
+        mail = findViewById(R.id.email);
+        genre = findViewById(R.id.genre);
+        adresse = findViewById(R.id.adresse);
+        ville = findViewById(R.id.ville);
+        cp = findViewById(R.id.cp);
+        club = findViewById(R.id.club);
+        licence = findViewById(R.id.licence);
+        imageView = null;
 
+        getUser();
 
+        System.out.println(person);
 
-    }
-    public static int PICK_IMAGE_REQUEST = 1;
-    public void pickImage(View view) {
-        showPictureDialog();
+        /*nom.setText(person.getName());
+        prenom.setText(person.getFirstname());
+        dateNaiss.setText(person.getDate());
+        mail.setText(person.getMail());
+        adresse.setText(person.getAdresse());
+        ville.setText(person.getVille());
+        cp.setText(person.getCp());
+        club.setText(person.getClub());
+        licence.setText(person.getLicence());*/
+
+        //Reste a faire le genre
+
+        imageView = (ImageView)findViewById(R.id.imageView);
     }
 
     @Override
@@ -62,6 +96,7 @@ public class ProfilActivity extends AppCompatActivity {
         if (resultCode == this.RESULT_CANCELED) {
             return;
         }
+
         if (requestCode == 1) {
             if (data != null) {
                 Uri contentURI = data.getData();
@@ -82,6 +117,17 @@ public class ProfilActivity extends AppCompatActivity {
         }
     }
 
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
+
+    public void pickImage(View view) {
+        showPictureDialog();
+    }
 
     private void showPictureDialog(){
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
@@ -128,16 +174,14 @@ public class ProfilActivity extends AppCompatActivity {
     public String saveImage(Bitmap myBitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File wallpaperDirectory = new File(
-                Environment.getExternalStorageDirectory() + "image/");
+        File wallpaperDirectory = new File(Environment.getExternalStorageDirectory() + "image/");
         // have the object build the directory structure, if needed.
         if (!wallpaperDirectory.exists()) {
             wallpaperDirectory.mkdirs();
         }
 
         try {
-            File f = new File(wallpaperDirectory, Calendar.getInstance()
-                    .getTimeInMillis() + ".jpg");
+            File f = new File(wallpaperDirectory, Calendar.getInstance().getTimeInMillis() + ".jpg");
             f.createNewFile();
             FileOutputStream fo = new FileOutputStream(f);
             fo.write(bytes.toByteArray());
@@ -151,7 +195,28 @@ public class ProfilActivity extends AppCompatActivity {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
+
         return "";
     }
 
+    private void getUser() {
+        mDatabase.child("users").orderByChild("uid").equalTo(mFirebaseUser.getUid()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                person = dataSnapshot.getValue(Person.class);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
 }

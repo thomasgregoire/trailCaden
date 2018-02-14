@@ -23,4 +23,18 @@
     <string name="inscription">Vous pouvez vous connectez pour vous inscrire à la course et accéder à votre compte.</string>
     <string name="appli">Vous pouvez visualiser les parcours des courses, la météo de Caden dans le menu en haut à droite.</string>
 
+    <string name="nom">Nom</string>
+    <string name="prenom">Prénom</string>
+    <string name="genre">Genre</string>
+    <string name="dateNaiss">Date de naissance</string>
+    <string name="mail">Email</string>
+    <string name="tel">N° Téléphone</string>
+    <string name="adresse">Adresse</string>
+    <string name="ville">Ville</string>
+    <string name="cp">Code postal</string>
+    <string name="club">Club</string>
+    <string name="licence">N° Licence</string>
+    <string name="homme">Homme</string>
+    <string name="femme">Femme</string>
+
 </resources>

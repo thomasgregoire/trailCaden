@@ -45,9 +45,10 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHold
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView mail = parent.findViewById(R.id.mail);
+                View mail = ((ViewGroup)view).getChildAt(2);
                 DialogCertificatFragment dcf = new DialogCertificatFragment();
-                dcf.setMail(mail.getText().toString());
+                TextView tv = (TextView)mail;
+                dcf.setMail(tv.getText().toString());
                 FragmentManager manager = ((Activity) parent.getContext()).getFragmentManager();
                 dcf.show(manager, "test");
             }

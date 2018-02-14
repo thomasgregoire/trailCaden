@@ -7,7 +7,7 @@ package com.example.thomas.trailcaden.model;
 public class Person {
     private String uid, name, firstname, date, genre, adresse, ville, cp, tel, mail;
     private String club, licence;
-    private boolean isInscrit = false;
+    private boolean isInscrit, isAdmin;
 
     public Person() {
 
@@ -19,13 +19,14 @@ public class Person {
         this.date = date;
     }
 
-    public Person(String uid, String name, String firstname, String date, String mail, boolean isInscrit) {
+    public Person(String uid, String name, String firstname, String date, String mail, boolean isInscrit, boolean isAdmin) {
         this.uid = uid;
         this.name = name;
         this.firstname = firstname;
         this.date = date;
         this.mail = mail;
         this.isInscrit = isInscrit;
+        this.isAdmin = isAdmin;
     }
 
     public String getUid() {
@@ -130,5 +131,13 @@ public class Person {
 
     public void setInscrit(boolean inscrit) {
         isInscrit = inscrit;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }

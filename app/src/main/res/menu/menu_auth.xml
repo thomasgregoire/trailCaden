@@ -22,11 +22,6 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/admin"
-        android:title="Admin"
-        app:showAsAction="never"/>
-
-    <item
         android:id="@+id/action_logout"
         android:title="@string/action_logout"
         app:showAsAction="never"/>

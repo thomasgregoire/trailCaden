@@ -25,7 +25,7 @@ import static com.google.android.gms.maps.MapFragment.newInstance;
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private final LatLng CADEN = new LatLng(47.6269912719726562,-2.2877552509307861);
+    private final LatLng CADEN = new LatLng(47.6333,-2.2833);
     private  KmlLayer layer10km;
     private  KmlLayer layer8km;
     private KmlLayer layer;
@@ -57,7 +57,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         }else{
             mMap.addMarker(new MarkerOptions().position(CADEN).title("Caden"));
         }
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(CADEN, 13));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(47.6333,-2.2933), 13));
     }
 
     public GoogleMap getMap() {
@@ -70,6 +70,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     public void button10km(View view) throws IOException, XmlPullParserException {
         if(layer!=null){layer.removeLayerFromMap();}
+        mMap.clear();
         layer10km = new KmlLayer(mMap, R.raw.parcours10km,this);
         setLayer(layer10km);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -78,6 +79,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     }
     public void button8km(View view) throws IOException, XmlPullParserException {
         if(layer!=null){layer.removeLayerFromMap();}
+        mMap.clear();
         layer8km = new KmlLayer(mMap, R.raw.parcours8km,this);
         setLayer(layer8km);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

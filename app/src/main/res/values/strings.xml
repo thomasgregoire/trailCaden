@@ -9,7 +9,7 @@
     <string name="login_error_message">"Assurez-vous d'entrer une adresse e-mail et mot de passe !"</string>
     <string name="login_error_title">Erreur !</string>
     <string name="login_button_label">Se connecter</string>
-    <string name="sign_up_text">Créer un compte</string>
+    <string name="sign_up_text">"S'inscrire"</string>
     <string name="title_activity_login">"S'inscrire"</string>
     <string name="action_logout">Se déconnecter</string>
 

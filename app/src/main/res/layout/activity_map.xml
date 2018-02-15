@@ -16,7 +16,7 @@
         android:textSize="15sp" />
 
     <LinearLayout
-        android:layout_width="397dp"
+        android:layout_width="match_parent"
         android:layout_height="35dp"
         android:orientation="horizontal">
 
@@ -36,7 +36,8 @@
             android:layout_weight="1"
             android:background="@color/cast_expanded_controller_ad_container_white_stripe_color"
             android:onClick="button8km"
-            android:text="8 km" />
+            android:text="8 km"
+            android:textAlignment="center" />
     </LinearLayout>
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"

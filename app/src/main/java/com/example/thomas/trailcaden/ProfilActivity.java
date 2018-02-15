@@ -58,6 +58,7 @@ public class ProfilActivity extends BaseActivity {
     private EditText cp;
     private EditText club;
     private EditText licence;
+    private EditText parcours;
     private EditText mail;
     private Uri contentURI = null;
     private String urlImage;
@@ -92,6 +93,7 @@ public class ProfilActivity extends BaseActivity {
         cp = findViewById(R.id.cp);
         club = findViewById(R.id.club);
         licence = findViewById(R.id.licence);
+        parcours = findViewById(R.id.parcours);
         imageView = (ImageView)findViewById(R.id.imageView);
 
         storageRef.child(urlImage).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -117,6 +119,7 @@ public class ProfilActivity extends BaseActivity {
                 nom.setText(p.getName());
                 prenom.setText(p.getFirstname());
                 dateNaiss.setText(p.getDate());
+                parcours.setText(p.getParcours());
                 /*mail.setText(p.getMail());
                 adresse.setText(p.getAdresse());
                 ville.setText(p.getVille());

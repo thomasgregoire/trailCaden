@@ -9,11 +9,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.thomas.trailcaden.MainActivity;
 import com.example.thomas.trailcaden.model.Contact;
@@ -71,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.spinner_parcours);
 
 
-        populateSpinner(spinner);
+        //populateSpinner(spinner);
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +91,7 @@ public class SignUpActivity extends AppCompatActivity {
                 name = name.trim();
                 firstName = firstName.trim();
                 date = date.trim();
+                parcours = parcours.trim();
 
                 if (password.isEmpty() || email.isEmpty() || name.isEmpty() || firstName.isEmpty() || date.isEmpty()) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
@@ -149,6 +153,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    //Will be used to populate spinner with data from "Parcours" table
     public void populateSpinner(Spinner spinner) {
         mDatabase.child("parcours").addChildEventListener(new ChildEventListener() {
             @Override
@@ -189,4 +194,6 @@ public class SignUpActivity extends AppCompatActivity {
         spinner.setAdapter(spinnerArrayAdapter);
 
     }
+
+
 }

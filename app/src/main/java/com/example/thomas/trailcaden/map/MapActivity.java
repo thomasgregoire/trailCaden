@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.thomas.trailcaden.BaseActivity;
 import com.example.thomas.trailcaden.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,6 +30,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private  KmlLayer layer8km;
     private KmlLayer layer;
 
+
     public MapActivity() throws IOException, XmlPullParserException {}
 
     @Override
@@ -38,6 +40,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
     }
 
     @Override

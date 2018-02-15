@@ -31,7 +31,6 @@ import static android.support.v4.content.ContextCompat.startActivity;
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHolder> {
 
     private List<Contact> contactList;
-    protected final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private Context context;
 
 

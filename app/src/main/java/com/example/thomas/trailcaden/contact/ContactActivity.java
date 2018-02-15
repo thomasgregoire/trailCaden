@@ -23,6 +23,8 @@ import com.example.thomas.trailcaden.model.Person;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,30 +51,7 @@ public class ContactActivity extends BaseActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(cAdapter);
 
-       /* final Button button = findViewById(R.id.button_call);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-               callContact(v);
-            }
-        });
-*/
         displayContact();
-    }
-
-    private void callContact(View v) {
-        View numberView = ((ViewGroup)v).getChildAt(4);
-        TextView tv = (TextView)numberView;
-        String number = tv.getText().toString();
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", number, null));
-        int permissionCheck = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.CALL_PHONE);
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CALL_PHONE},1);
-        }else{
-            startActivity(intent);
-        }
-
     }
 
     private void displayContact() {

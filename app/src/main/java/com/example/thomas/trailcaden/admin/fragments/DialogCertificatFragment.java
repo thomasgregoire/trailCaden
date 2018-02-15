@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -81,7 +82,7 @@ public class DialogCertificatFragment extends DialogFragment {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
-                            
+                            Toast.makeText(getActivity(), "Pas de certificat renseigné", Toast.LENGTH_LONG).show();
                         }
                     });
                 }

@@ -9,19 +9,31 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.example.thomas.trailcaden.MainActivity;
+import com.example.thomas.trailcaden.model.Contact;
+import com.example.thomas.trailcaden.model.Parcours;
 import com.example.thomas.trailcaden.model.Person;
 import com.example.thomas.trailcaden.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Joris on 12/02/2018.
@@ -34,6 +46,9 @@ public class SignUpActivity extends AppCompatActivity {
     protected EditText firstNameEditText;
     protected EditText dateEditText;
     protected Button signUpButton;
+    protected Spinner spinner;
+
+    final List<String> parcoursList = new ArrayList<String>();
 
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabase;
@@ -53,6 +68,10 @@ public class SignUpActivity extends AppCompatActivity {
         firstNameEditText = (EditText)findViewById(R.id.firstNameField);
         dateEditText = (EditText)findViewById(R.id.dateField);
         signUpButton = (Button)findViewById(R.id.signupButton);
+        spinner = (Spinner) findViewById(R.id.spinner_parcours);
+
+
+        populateSpinner(spinner);
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String name = nameEditText.getText().toString();
                 String firstName = firstNameEditText.getText().toString();
                 String date = dateEditText.getText().toString();
+                String parcours = spinner.getSelectedItem().toString();
 
                 password = password.trim();
                 email = email.trim();
@@ -86,8 +106,9 @@ public class SignUpActivity extends AppCompatActivity {
                                 String name = nameEditText.getText().toString();
                                 String firstName = firstNameEditText.getText().toString();
                                 String date = dateEditText.getText().toString();
+                                String parcours = spinner.getSelectedItem().toString();
 
-                                Person person = new Person(uid, name, firstName, date, email, false, false);
+                                Person person = new Person(uid, name, firstName, date, email, false, false, parcours);
                                 mDatabase.child("users").push().setValue(person);
 
                                 Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
@@ -126,5 +147,46 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void populateSpinner(Spinner spinner) {
+        mDatabase.child("parcours").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Map<String,Object> map;
+                String p ;
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                   if (child.getKey().contentEquals("libelle")){
+                       parcoursList.add(child.getValue().toString());
+                   }
+                }
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.spinner_parcours,parcoursList);
+
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_parcours);
+        spinner.setAdapter(spinnerArrayAdapter);
+
     }
 }

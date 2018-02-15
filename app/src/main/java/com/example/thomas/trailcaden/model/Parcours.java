@@ -10,6 +10,8 @@ public class Parcours {
     private String uid, libelle, distance;
     private Timestamp heureLimiteInscription, heureDepart;
 
+    public Parcours(){};
+
     public Parcours(String uid, String libelle, String distance, Timestamp heureLimiteInscription, Timestamp heureDepart) {
         this.uid = uid;
         this.libelle = libelle;

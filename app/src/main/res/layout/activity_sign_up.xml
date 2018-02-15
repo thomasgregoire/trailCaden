@@ -65,6 +65,14 @@
         android:onClick="showDatePickerDialog"
         android:selectAllOnFocus="true" />
 
+    <Spinner
+        android:id="@+id/spinner_parcours"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dateField"
+        android:ems="10"
+        />
+
     <Button
         android:id="@+id/signupButton"
         android:layout_width="match_parent"

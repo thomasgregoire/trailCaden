@@ -8,12 +8,13 @@ public class Person {
     private String uid, name, firstname, date, genre, adresse, ville, cp, tel, mail;
     private String club, licence;
     private boolean isInscrit, isAdmin;
+    private String parcours;
 
     public Person() {
 
     }
 
-    public Person(String uid, String name, String firstname, String date, String mail, boolean isInscrit, boolean isAdmin) {
+    public Person(String uid, String name, String firstname, String date, String mail, boolean isInscrit, boolean isAdmin, String parcours) {
         this.uid = uid;
         this.name = name;
         this.firstname = firstname;
@@ -21,6 +22,7 @@ public class Person {
         this.mail = mail;
         this.isInscrit = isInscrit;
         this.isAdmin = isAdmin;
+        this.parcours = parcours;
 
         this.cp = "";
         this.ville = "";
@@ -141,5 +143,13 @@ public class Person {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public void setParcours(String p){
+        this.parcours = p;
+    }
+
+    public String getParcours(){
+        return this.parcours;
     }
 }

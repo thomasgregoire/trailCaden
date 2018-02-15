@@ -69,9 +69,6 @@ public class ProfilActivity extends BaseActivity {
     static FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     static StorageReference storageRef = firebaseStorage.getReference();
 
-
-
-    // Create a reference to "mountains.jpg"
     static StorageReference  userRef;
 
 
@@ -154,8 +151,6 @@ public class ProfilActivity extends BaseActivity {
             return;
         }
         if(urlImage.equals(mFirebaseAuth.getUid()+"/cerfificat.jpg")){
-
-            System.out.println("INNNNNNNNNN");
             if (requestCode == 1) {
                 if (data != null) {
                     contentURI = data.getData();
@@ -180,8 +175,6 @@ public class ProfilActivity extends BaseActivity {
                 saveToFirebase(thumbnail,urlImage);
             }
         }else{
-
-            System.out.println("OUUUUUUUUUUTTT");
             if (requestCode == 1) {
                 if (data != null) {
                     contentURI = data.getData();
